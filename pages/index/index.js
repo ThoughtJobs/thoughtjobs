@@ -68,7 +68,7 @@ Page({
     },
     onAboutButtonClicked() {
       App.WxService.showModal({
-        content: `我们是一群发自内心热爱ThoughtWorks的TWer！\r\n\r\n ThoughtJobs这款微信息小程序就是我们自发组织，利用业余时间为她和你定制的礼物，希望给大家更多的机会了解彼此！`,
+        content: `我们是一群发自内心热爱ThoughtWorks的TWer！\r\n\r\n ThoughtJobs这款微信息小程序就是我们自发组织，利用业余时间为你定制的礼物，希望给大家更多的机会了解彼此！`,
         confirmText: "确认",
         showCancel: false,
         success: function (res) {
