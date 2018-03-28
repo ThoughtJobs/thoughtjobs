@@ -47,8 +47,11 @@ Page({
       })
     },
     onCallButtonClicked() {
+      const twers = ['wwsun', 'hruan', 'htao', 'wwsun']
+      const theOne = twers[parseInt(Math.random() * 3)]
+
       App.WxService.showModal({
-        content: `请将你的简历发送至:\r\n\r\nwwsun@thoughtworks.com\r\n\r\n邮箱，我们将在第一时间为你定制专属你的ThoughtWorks之旅！`,
+        content: `请将你的简历发送至邮箱:\r\n\r\n ${theOne}@thoughtworks.com \r\n\r\n 主题里请以【内推】开头。我们将在第一时间为你定制专属你的ThoughtWorks之旅！`,
         confirmText: "确认",
         showCancel: false,
         success: function (res) {
@@ -67,14 +70,7 @@ Page({
       })
     },
     onAboutButtonClicked() {
-      App.WxService.showModal({
-        content: `我们是一群发自内心热爱ThoughtWorks的TWer！\r\n\r\n ThoughtJobs这款微信息小程序就是我们自发组织，利用业余时间为你定制的礼物，希望给大家更多的机会了解彼此！`,
-        confirmText: "确认",
-        showCancel: false,
-        success: function (res) {
-          // res.confirm
-        }
-      })
+      App.WxService.navigateTo('/pages/aboutus/index')
     },
     onClicked(e) {
       let action = e.currentTarget.dataset.id;

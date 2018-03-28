@@ -1,7 +1,8 @@
 {
   "pages": [
     "pages/start/index",
-    "pages/index/index"
+    "pages/index/index",
+    "pages/aboutus/index"
   ],
   "window": {
     "navigationBarBackgroundColor": "#ed7f61",

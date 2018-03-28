@@ -4,7 +4,7 @@
         <view class="weui-panel__hd">员工福利</view>
         <view class="weui-panel__bd">
             <view class="weui-media-box weui-media-box_text">
-                <view class="">1. 带薪年假8天起步， 带薪病假5天起步</view>
+                <view class="">1. 带薪年假10天起步， 带薪病假15天</view>
                 <view class="">2. Buddy、Sponser计划，为你贴心定制成长计划</view>
                 <view class="">3. 思沃学院 - 像巨人一样思考</view>
                 <view class="">4. 每年2000RMB学习基金</view>
