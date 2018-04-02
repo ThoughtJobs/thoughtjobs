@@ -31,9 +31,29 @@ Page({
         { path: 'http://p5bvccvyy.bkt.clouddn.com/hirepost-2018.jpeg' }
       ],
     },
-    onLoad() {
+    onLoad(options) {
+      console.log('onload options', options)
+      console.log('onLoad-options.id:' + options.id);
+      if(options.id){
+        wx.setStorageSync('optionsId', options.id)
+      }
       this.lastLikeDate = null
-      this.userInfo = App.WxService.getStorageSync('userinfo')
+      wx.login({
+        success: function (res) {
+          let code = res.code
+          wx.getUserInfo({
+            withCredentials: true,
+            success: function (res) {
+              console.log('res.userInfo', res.userInfo)
+              wx.setStorageSync('token', res.userInfo.nickName)
+              wx.setStorageSync('userinfo', res.userInfo)
+            },
+            fail: function (res) {
+              console.log('get user info failed', res)
+            }
+          })
+        }
+      })
     },
     onShow() {
     },
@@ -46,10 +66,21 @@ Page({
         urls: urls,
       })
     },
+    getTwEmailFromWeChatNickName(nickName){
+      let mapping = {
+        "陶慧": 'htao',
+        "wayde": 'wwsun',
+        "rh": 'hruan'
+      }
+      return mapping[nickName];
+    },
     onCallButtonClicked() {
-      const twers = ['wwsun', 'hruan', 'htao', 'wwsun']
-      const theOne = twers[parseInt(Math.random() * 3)]
-
+      const twers = ['wwsun', 'hruan', 'htao']
+      let theOne = twers[Math.floor(Math.random() * 3)]
+      let optionsId = wx.getStorageSync('optionsId')
+      if (optionsId){
+        theOne = getTwEmailFromWeChatNickName(optionsId)
+      }
       App.WxService.showModal({
         content: `请将你的简历发送至邮箱:\r\n\r\n ${theOne}@thoughtworks.com \r\n\r\n 主题里请以【内推】开头。我们将在第一时间为你定制专属你的ThoughtWorks之旅！`,
         confirmText: "确认",
@@ -89,15 +120,27 @@ Page({
           break
       }
     },
-    onShareAppMessage: function () {
-      var self = this
-        return {
-          title: `ThoughtWorks最新招聘信息`,
-          path: '/pages/index/index',
-          complete: function (res) {
-          },
-          fail: function(res) {
+    onShareAppMessage: function (res) {
+      try {
+        let token = wx.getStorageSync('token')
+        if (token) {
+          console.log('onShareAppMessage token', token)
+          var self = this
+          return {
+            title: `ThoughtWorks最新招聘信息`,
+            path: '/pages/index/index?id=' + token,
+            success: function (shareTickets) {
+              shareTickets.forEach(item => {
+                console.log(item);
+              })
+            },
+            fail: function (res) {
+            }
           }
         }
+      } catch (e) {
+        // Do something when catch error
+        console.log('getStorageSync error', e)
+      }
     }
 })
