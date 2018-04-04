@@ -75,14 +75,14 @@ Page({
       return mapping[nickName];
     },
     onCallButtonClicked() {
-      const twers = ['wwsun', 'hruan', 'htao']
+      const twers = ['htao', 'wwsun', 'hruan']
       let theOne = twers[Math.floor(Math.random() * 3)]
       let optionsId = wx.getStorageSync('optionsId')
       if (optionsId){
-        theOne = getTwEmailFromWeChatNickName(optionsId)
+        theOne = this.getTwEmailFromWeChatNickName(optionsId)
       }
       App.WxService.showModal({
-        content: `请将你的简历发送至邮箱:\r\n\r\n ${theOne}@thoughtworks.com \r\n\r\n 主题里请以【内推】开头。我们将在第一时间为你定制专属你的ThoughtWorks之旅！`,
+        content: `请将你的简历发送至小伙伴${optionsId}的ThoughtWorks邮箱:\r\n\r\n ${theOne}@thoughtworks.com \r\n\r\n 主题里请以【内推】开头。我们将在第一时间为你定制专属你的ThoughtWorks之旅！`,
         confirmText: "确认",
         showCancel: false,
         success: function (res) {
